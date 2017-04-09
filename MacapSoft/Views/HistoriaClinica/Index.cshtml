@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Menú principal";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="navbar navbar-default navbar-static-top" role="navigation" style="border:groove; text-align:left; background:round">
+    <div class="container">
+        <div class="container-fluid">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="">
+                    @*<a href="@Url.Action("Index", "Seguridad")" title="">*@
+                        <i class="fa fa-home"></i>
+                        <label style="color:#06052F">Inicio</label>
+                    @*</a>*@
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-book"></i>
+                        <label style="color:#06052F">Historias Clínicas</label>
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-submenu">
+                            @*<a href="@Url.Action("Inicio", "Seguridad")" title="">*@
+                                <i class="fa fa-pie-chart"></i>
+                                Crear historia clínica
+                            @*</a>*@
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-book"></i>
+                        <label style="color:#06052F">Diagnósticos</label>
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-submenu">
+                            @*<a href="@Url.Action("Inicio", "Seguridad")" title="">*@
+                                <i class="fa fa-pie-chart"></i>
+                                Ver el listado de diagnósticos
+                            @*</a>*@
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
