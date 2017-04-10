@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "RecepcionCaso";
+    ViewBag.Encabezado = "Recepción de caso";
+}
+
+<h1>@ViewBag.Encabezado</h1>
+
+
+@section scripts{
+    <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script>
+
+    function dateFormatter(value, row) {
+        if (value != "") {
+            var date = new Date(parseInt(value.substr(6)));
+            var formatted = ("0" + date.getDate()).slice(-2) + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
+            return formatted;
+        }
+        return "";
+    }
+
+    $(function () {
+        $('#FechaInicio').datepicker({
+            format: 'dd-mm-yyyy',
+            onShow: function (ct) {
+                this.setOptions({
+                    minDate: jQuery('#FechaInicio').val() ? jQuery('#FechaInicio').val() : false
+                    , formatDate: 'd-m-Y'
+                })
+            },
+            timepicker: false
+        });
+
+
+        $('#FechaCierre').datepicker({
+            format: 'dd-mm-yyyy',
+            onShow: function (ct) {
+                this.setOptions({
+                    minDate: jQuery('#FechaInicio').val() ? jQuery('#FechaInicio').val() : false
+                    , formatDate: 'd-m-Y'
+                })
+            },
+            timepicker: false
+        });
+
+    });
+
+
+    function ObtenerParametrosFecha(){
+        $("#bussinesUnit").val($("#FechaInicio").val());
+        return true;
+    }
+    </script>
+
+
+
+}
+
+<div class="panel panel-default" style="border:groove">
+    @*groove, double, ridge,inset, outset, solid*@
+    <div class="Container">
+        @using (@Html.BeginForm("RecepcionCaso", "HistoriaClinica", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.Hidden("bussinesUnit");
+            <fieldset>
+                <legend>Historias clínicias CAP</legend>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Fecha de ingreso:</label>
+                    <div class="col-md-10">
+                        <div class="input-daterange input-group daterange" style="max-width:550px;">
+                            <span class="input-group-addon">Inicio</span>
+                            <input id="FechaInicio" name="FechaInicio" type="text" class="form-control" />
+                            <span class="input-group-addon">Cierre</span>
+                            <input id="FechaCierre" name="FechaCierre" type="text" class="form-control" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="singlebutton"></label>
+                    <div class="col-md-8" style="text-align:right;">
+                        <button type="submit" class="btn btn-primary" onclick="return ObtenerParametrosFecha();" style="text-align:right; background-color:#09053F">Aceptar</button>
+                    </div>
+                </div>
+            </fieldset>
+        }
+    </div>
+</div>
+

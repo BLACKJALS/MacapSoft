@@ -9,32 +9,36 @@
 
 </head>
 <body>
-    <div class="navbar navbar-default navbar-static-top" role="navigation" style="background-color:#06052F">
+    <div class="navbar navbar-default navbar-fixed-top navbar-custom" role="navigation" style="background-color:#06052F">
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand navbar-brand-left">
                     <img src="~/Content/Imagenes/Logo_CAP_UAN.png" />
-                    @*<img src="~/Content/Images/Logo CAP UAN.png" />*@
+                    @*<img src="~/Content/Imagenes/Logo_CAP_UAN.png" />*@
                 </a>
             </div>
         </div>  
-
     </div>
+    <br />
+    <br />
+    <br />
+    <br />
     @*<div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-            <li>@Html.ActionLink("About", "About", "Home")</li>
-            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            <li>CAP</li>
         </ul>
-        @Html.Partial("_LoginPartial")
+        @Html.Partial("_SchemaPartial")
     </div>*@
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <section>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+    </section>
+    
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

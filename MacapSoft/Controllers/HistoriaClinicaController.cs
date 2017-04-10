@@ -13,5 +13,11 @@ namespace MacapSoft.Controllers
         {
             return View();
         }
+
+
+        public ActionResult RecepcionCaso(string bussinesUnit)
+        {
+            return View();
+        }
     }
 }

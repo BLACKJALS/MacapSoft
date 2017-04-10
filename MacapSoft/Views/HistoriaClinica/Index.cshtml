@@ -3,7 +3,11 @@
     ViewBag.Title = "Menú principal";
 }
 
-<h2>@ViewBag.Title</h2>
+<div>
+    @*<h1></h1>
+    <br />*@
+    <h2>@ViewBag.Title</h2>
+</div>
 
 <div class="navbar navbar-default navbar-static-top" role="navigation" style="border:groove; text-align:left; background:round">
     <div class="container">
@@ -23,10 +27,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-submenu">
-                            @*<a href="@Url.Action("Inicio", "Seguridad")" title="">*@
+                            <a href="@Url.Action("RecepcionCaso", "HistoriaClinica")" title="">
                                 <i class="fa fa-pie-chart"></i>
-                                Crear historia clínica
-                            @*</a>*@
+                                Recepción
+                            </a>
                         </li>
                     </ul>
                 </li>
@@ -38,10 +42,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-submenu">
-                            @*<a href="@Url.Action("Inicio", "Seguridad")" title="">*@
+                            <a href="@Url.Action("ListarDiagnosticos", "Diagnostico")" title="">
                                 <i class="fa fa-pie-chart"></i>
                                 Ver el listado de diagnósticos
-                            @*</a>*@
+                            </a>
                         </li>
                     </ul>
                 </li>
