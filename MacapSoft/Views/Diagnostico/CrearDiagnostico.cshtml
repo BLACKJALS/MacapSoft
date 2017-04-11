@@ -1,0 +1,38 @@
+﻿
+
+
+<div class="panel panel-default" style="border:groove">
+    <div class="container">
+        <h3 align="center"><font size="16">Crear diagnóstico</font></h3>
+        <br />
+        <br />
+        @using (@Html.BeginForm("RecepcionCaso", "HistoriaClinica", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.Hidden("bussinesUnit");
+            <section>
+                <div class="form-group">
+                    <label class="col-md-3">Código del diagnóstico:</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="CodigoDiagnóstico" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3">Nombre del diagnóstico:</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="CodigoDiagnóstico" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-1">
+                        <input type="button" class="btn btn-primary" value="Regresar" onclick="location.href='@Url.Action("Index", "HistoriaClinica" )'" />
+                    </div>
+                    <div class="col-md-5">
+                        <button type="submit" value="Aceptar" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+</div>
+    
+

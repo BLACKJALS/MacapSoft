@@ -17,5 +17,9 @@ namespace MacapSoft.Controllers
         public ActionResult ListarDiagnosticos() {
             return View();
         }
+
+        public ActionResult CrearDiagnostico() {
+            return View();
+        }
     }
 }

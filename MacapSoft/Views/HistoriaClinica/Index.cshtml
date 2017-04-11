@@ -14,10 +14,10 @@
         <div class="container-fluid">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="">
-                    @*<a href="@Url.Action("Index", "Seguridad")" title="">*@
+                    <a href="@Url.Action("Index", "HistoriaClinica")" title="">
                         <i class="fa fa-home"></i>
                         <label style="color:#06052F">Inicio</label>
-                    @*</a>*@
+                    </a>
                 </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -45,6 +45,12 @@
                             <a href="@Url.Action("ListarDiagnosticos", "Diagnostico")" title="">
                                 <i class="fa fa-pie-chart"></i>
                                 Ver el listado de diagnósticos
+                            </a>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="@Url.Action("CrearDiagnostico", "Diagnostico")" title="">
+                                <i class="fa fa-pie-chart"></i>
+                                Crear un diagnóstico
                             </a>
                         </li>
                     </ul>

@@ -410,6 +410,7 @@
     <Content Include="Views\HistoriaClinica\RecepcionCaso.cshtml" />
     <Content Include="Views\Diagnostico\ListarDiagnosticos.cshtml" />
     <Content Include="Views\Shared\_SchemaPartial.cshtml" />
+    <Content Include="Views\Diagnostico\CrearDiagnostico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

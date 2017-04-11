@@ -78,9 +78,14 @@
 
                     </div>
                 </div>
+                
                 <div class="form-group">
+                    <div class="col-md-2">
+                        @*<button type="submit" id="buttonBack" class="btn btn-default" onclick="return regresar();">Atrás</button>*@
+                        <input type="button" class="btn btn-primary" value="Regresar" onclick="location.href='@Url.Action("Index", "HistoriaClinica" )'" />
+                    </div>
                     <label class="col-md-4 control-label" for="singlebutton"></label>
-                    <div class="col-md-8" style="text-align:right;">
+                    <div class="col-md-6" style="text-align:right;">
                         <button type="submit" class="btn btn-primary" onclick="return ObtenerParametrosFecha();" style="text-align:right; background-color:#09053F">Aceptar</button>
                     </div>
                 </div>
