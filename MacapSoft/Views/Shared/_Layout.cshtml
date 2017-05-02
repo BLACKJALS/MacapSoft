@@ -17,24 +17,23 @@
                     @*<img src="~/Content/Imagenes/Logo_CAP_UAN.png" />*@
                 </a>
             </div>
+            <div class="navbar-collapse collapse">
+                @Html.Partial("_LoginPartial")
+            </div>
         </div>  
     </div>
     <br />
     <br />
     <br />
     <br />
-    @*<div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-            <li>CAP</li>
-        </ul>
-        @Html.Partial("_SchemaPartial")
-    </div>*@
+    
     <section>
         <div class="container body-content">
             @RenderBody()
             <hr />
             <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                @*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
+                <p style="text-align:center">@DateTime.Now.Year - MacapSoft UAN</p>
             </footer>
         </div>
     </section>

@@ -17,9 +17,10 @@ namespace MacapSoft.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        ApplicationDbContext context;
         public AccountController()
         {
+            context = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -136,17 +137,19 @@ namespace MacapSoft.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult Register()
         {
+            //ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+            ViewBag.Name = new SelectList(context.Roles.ToList(),"Name","Name");
             return View();
         }
 
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        [Authorize]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -155,15 +158,15 @@ namespace MacapSoft.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                    await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
+                    return RedirectToAction("Index", "HistoriaClinica");
                 }
                 AddErrors(result);
             }
@@ -174,7 +177,7 @@ namespace MacapSoft.Controllers
 
         //
         // GET: /Account/ConfirmEmail
-        [AllowAnonymous]
+        [Authorize]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
             if (userId == null || code == null)
@@ -187,7 +190,7 @@ namespace MacapSoft.Controllers
 
         //
         // GET: /Account/ForgotPassword
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult ForgotPassword()
         {
             return View();
@@ -196,7 +199,7 @@ namespace MacapSoft.Controllers
         //
         // POST: /Account/ForgotPassword
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
@@ -223,7 +226,7 @@ namespace MacapSoft.Controllers
 
         //
         // GET: /Account/ForgotPasswordConfirmation
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult ForgotPasswordConfirmation()
         {
             return View();
@@ -231,7 +234,7 @@ namespace MacapSoft.Controllers
 
         //
         // GET: /Account/ResetPassword
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult ResetPassword(string code)
         {
             return code == null ? View("Error") : View();
@@ -240,7 +243,7 @@ namespace MacapSoft.Controllers
         //
         // POST: /Account/ResetPassword
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
@@ -265,7 +268,7 @@ namespace MacapSoft.Controllers
 
         //
         // GET: /Account/ResetPasswordConfirmation
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult ResetPasswordConfirmation()
         {
             return View();
@@ -274,7 +277,7 @@ namespace MacapSoft.Controllers
         //
         // POST: /Account/ExternalLogin
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
@@ -284,7 +287,7 @@ namespace MacapSoft.Controllers
 
         //
         // GET: /Account/SendCode
-        [AllowAnonymous]
+        [Authorize]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
@@ -392,7 +395,7 @@ namespace MacapSoft.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "HistoriaClinica");
         }
 
         //
@@ -423,6 +426,71 @@ namespace MacapSoft.Controllers
             base.Dispose(disposing);
         }
 
+        #region
+        public ActionResult DeleteUser()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<ActionResult> DeleteUser(string idUsuario, string RoleUsuario)
+        {
+
+            if (idUsuario != null)
+            {
+                var oldUser = UserManager.FindById(idUsuario);
+                await UserManager.RemoveFromRoleAsync(idUsuario, RoleUsuario);
+                await UserManager.DeleteAsync(oldUser);
+                //var AutheticationManager = HttpContext.GetOwinContext().Authentication;
+                //AuthenticationManager.SignOut();
+            }
+            return RedirectToAction("DeleteUser", "Account");
+        }
+
+
+        [HttpPost]
+        public JsonResult EditRoleUser(string idColumna, string rolEditado)
+        {
+
+
+            var UsersContext = new ApplicationDbContext();
+            var oldUser = UserManager.FindById(idColumna);
+            var oldRoleId = oldUser.Roles.SingleOrDefault().RoleId;
+            var oldRoleName = UsersContext.Roles.SingleOrDefault(r => r.Id == oldRoleId).Name;
+
+            if (oldRoleName != rolEditado)
+            {
+                UserManager.RemoveFromRole(idColumna, oldRoleName);
+                UserManager.AddToRole(idColumna, rolEditado);
+            }
+            return Json("Ok", JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
+
+        public JsonResult ListarUsuarios()
+        {
+            //var UsersContext = new ApplicationDbContext();
+            //var listaUsuarios = getAllUsers();
+            var applicationDbContext = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+            var users = from user in applicationDbContext.Users
+                        from role in applicationDbContext.Roles
+                        where role.Users.Any(r => r.UserId == user.Id)
+                        select new
+                        {
+                            Id = user.Id,
+                            nombreUsuario = user.UserName,
+                            Email = user.Email,
+                            Role = role.Name
+                        };
+
+            var listaUsuarios = users.ToList();
+            return Json(listaUsuarios, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

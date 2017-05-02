@@ -207,9 +207,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="LogicaModels\Maper.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DiagnosticoVM.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\HistoriaClinica.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -372,7 +376,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -411,10 +417,12 @@
     <Content Include="Views\Diagnostico\ListarDiagnosticos.cshtml" />
     <Content Include="Views\Shared\_SchemaPartial.cshtml" />
     <Content Include="Views\Diagnostico\CrearDiagnostico.cshtml" />
+    <Content Include="Views\Diagnostico\CrearDiagnosticoCAP.cshtml" />
+    <Content Include="Views\Diagnostico\ErrorCrearDiagnosticoView.cshtml" />
+    <Content Include="Views\Account\DeleteUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Diagnosticos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -422,6 +430,12 @@
     </Content>
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MacapsoftBO\MacapsoftBO.csproj">
+      <Project>{d7b4bb02-f8e9-48bd-b01d-5f799c4c0c0b}</Project>
+      <Name>MacapsoftBO</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
